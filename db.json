@@ -4,7 +4,7 @@
       "id": 1,
       "name": "Woody",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
-      "likes": 16
+      "likes": 19
     },
     {
       "id": 2,
@@ -43,10 +43,10 @@
       "likes": 4
     },
     {
-      "id": 8,
-      "name": "Little Green Men",
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
-      "likes": 7
+      "name": "Homer Simpson",
+      "image": "https://i.pinimg.com/originals/ab/7e/4b/ab7e4be7dffbb7df030662b26e9c0f51.jpg",
+      "likes": 17,
+      "id": 8
     }
   ]
 }

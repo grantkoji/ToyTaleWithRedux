@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
+//import these two lines always
 import * as action from '../ActionCreators/actionCreators'
 import {connect} from 'react-redux'
 
 class ToyCard extends Component {
 
-
-  // componentDidUpdate(prevProps){
-  //   if(prevProps.id != this.props.id){
-  //     this.setState({likes: this.props.likes})
-  //   }
-  // }
-
-
-
-
-
   clickLike = () => {
-    const { likes, id, addLike } = this.props
+    const { likes, id } = this.props
     let updatedLikes = parseInt(likes) + 1
     fetch(`http://localhost:3000/toys/${id}`, {
       method: 'PATCH',
@@ -28,12 +18,12 @@ class ToyCard extends Component {
     })
     .then(res=>res.json())
     .then(toyData => {
-      addLike(toyData.id)
+      this.props.addLike(id)
     })
   }
 
-  donateToy = () => {
-    const {id, removeToy} = this.props
+  clickDonateToy = () => {
+    const {id, donateToy} = this.props
     fetch(`http://localhost:3000/toys/${id}`, {
       method: 'DELETE',
       headers: {
@@ -41,7 +31,8 @@ class ToyCard extends Component {
         Accept: 'application/json'
       }
     })
-    .then(data => removeToy(this.props.id))
+    .then(data => donateToy(id)
+    )
   }
 
  
@@ -54,7 +45,7 @@ class ToyCard extends Component {
         <img src={image} alt={name} className="toy-avatar" />
         <p>{likes} Likes </p>
         <button className="like-btn" onClick={this.clickLike}>Like {'<3'}</button>
-        <button className="del-btn" onClick={this.donateToy}>Donate to GoodWill</button>
+        <button className="del-btn" onClick={this.clickDonateToy }>Donate to GoodWill</button>
       </div>
     );
   }
@@ -62,66 +53,56 @@ class ToyCard extends Component {
 }
 
 
-const mapStateToProps = state => {
-  return {
-      toys: state.toys
-  }
-}
 
 const mapDispatchToProps = dispatch => {
-  return {
-      removeToy: (toyId) => dispatch(action.removeToy(toyId)),
-      addLike: (toyId) => dispatch(action.addLike(toyId))
-  }
+    return {
+        addLike: (toyId) => dispatch(action.addLike(toyId)),
+        donateToy: (toyId) => dispatch(action.donateToy(toyId))
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToyCard);
+
+export default connect(null, mapDispatchToProps)(ToyCard)
+
 
 
 
 
 // import React, { Component } from 'react';
+// import * as action from '../ActionCreators/actionCreators'
+// import {connect} from 'react-redux'
 
 // class ToyCard extends Component {
-//   state={
-//     likes: this.props.likes
-//   }
 
-//   // componentDidUpdate(prevProps){
-//   //   if(prevProps.id != this.props.id){
-//   //     this.setState({likes: this.props.likes})
-//   //   }
-//   // }
+
 
 //   clickLike = () => {
-//     let likes = parseInt(this.state.likes) + 1
-//     fetch(`http://localhost:3000/toys/${this.props.id}`, {
+//     const { likes, id, addLike } = this.props
+//     let updatedLikes = parseInt(likes) + 1
+//     fetch(`http://localhost:3000/toys/${id}`, {
 //       method: 'PATCH',
 //       headers: {
 //         "Content-Type": 'application/json',
 //         Accept: 'application/json'
 //       },
-//       body: JSON.stringify({ likes })
+//       body: JSON.stringify({ likes: updatedLikes })
 //     })
 //     .then(res=>res.json())
-//     .then(likesData => {
-//       this.props.addLike(likesData)
-//       console.log(likesData)
-//       this.setState(prevState => {
-//         return {likes: prevState.likes + 1}
-//       })
+//     .then(toyData => {
+//       addLike(toyData.id)
 //     })
 //   }
 
 //   donateToy = () => {
-//     fetch(`http://localhost:3000/toys/${this.props.id}`, {
+//     const {id, removeToy} = this.props
+//     fetch(`http://localhost:3000/toys/${id}`, {
 //       method: 'DELETE',
 //       headers: {
 //         "Content-Type": 'application/json',
 //         Accept: 'application/json'
 //       }
 //     })
-//     .then(data => this.props.removeToy(this.props.id))
+//     .then(data => removeToy(this.props.id))
 //   }
 
  
@@ -141,4 +122,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(ToyCard);
 
 // }
 
-// export default ToyCard;
+
+// const mapStateToProps = state => {
+//   return {
+//       toys: state.toys
+//   }
+// }
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//       removeToy: (toyId) => dispatch(action.removeToy(toyId)),
+//       addLike: (toyId) => dispatch(action.addLike(toyId))
+//   }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ToyCard);
+
+
+
+
+

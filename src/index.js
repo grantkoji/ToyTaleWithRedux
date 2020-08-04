@@ -6,8 +6,9 @@ import {Provider} from 'react-redux'
 import reducer from './Reducers/reducer.js'
 
 let store=createStore(reducer)
+
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>
-, document.getElementById('root'));
+    ,document.getElementById('root'));
